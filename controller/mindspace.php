@@ -37,12 +37,22 @@ Class Controller_MindSpace extends Controller
 		);
 		//utils::print_r($scene);
 		$this->saveScene($scene);
-		utils::redirect('/mindspace/admin',200);
+		$user = utils::getRequest('user');
+		$url = '/mindspace/admin';
+		$url = (!empty($user))	?	$url . "?user=".$user	:	$url;
+		if(true) {
+			utils::redirect($url,200);
+		} else {
+			ll::_("Redirect to $url");
+			echo ll::get_ll_html();
+		}
+		exit;
 		
 	}
 	function getScene() {
 		$fname = self::getFName();
 		if(!is_file($fname)) {
+			ll::_("No file: $fname");
 			$scene = array(
 				'objects' => array(
 					array('name' => 'obj1', 'xyz' => array(-10,0,0)),
@@ -52,8 +62,10 @@ Class Controller_MindSpace extends Controller
 			);
 			$this->saveScene($scene);
 		} else {
+			ll::_("Get scene from file: $fname");
 			$json = file_get_contents($fname);
 			$scene = json_decode($json, true);
+			ll::_("File has ".count($scene['objects'])." objects");
 		}
 		return $scene;		
 	}
@@ -64,5 +76,6 @@ Class Controller_MindSpace extends Controller
 		$user = utils::getRequest('user');
 		$userPrefix = !empty($user)	?	$user.'_'	:	'';
 		$fname = "scene".$userPrefix.".json";
+		return $fname;
 	}
 }
