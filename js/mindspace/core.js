@@ -23,7 +23,7 @@ function init(canvasId) {
         // Load BABYLON 3D engine and set the root directory
         engine = new BABYLON.Engine(canvas, true);
 
-        //Create a new scene with a camera (mandatory), a light (better) and a sphere (to see the origin)
+        // Create a new scene with a camera (mandatory), a light (better) and a sphere (to see the origin)
         scene = new BABYLON.Scene(engine);
 
         // Creating a camera looking to the zero point (0,0,0)
@@ -37,10 +37,6 @@ function init(canvasId) {
 }
 
 function addParams(obj, params) {
-	//echo 'var materialSphere2 = new BABYLON.StandardMaterial("texture1", scene);';
-	
-	//echo 'materialSphere2.diffuseTexture = new BABYLON.Texture("http://a1.s6img.com/cdn/0018/p/6808232_14801161_ir.jpg", scene);';
-	//echo $objectName.'.material = materialSphere2;';
 	if(params['xyz']!=undefined) {
 		obj.position = new BABYLON.Vector3(params['xyz'][0], params['xyz'][1], params['xyz'][2]);
 	}
@@ -48,6 +44,14 @@ function addParams(obj, params) {
 		var matName = params['name']+"_mat";
 		var matObj = new BABYLON.StandardMaterial(matName, scene);
 		matObj.diffuseColor = new BABYLON.Color3(params['color'][0], params['color'][1], params['color'][2]);
+		if(params['alpha']!=undefined) {
+			matObj.alpha = params['alpha'];
+		}
+		if(params['texture']!=undefined) {
+			//matObj.diffuseTexture = new BABYLON.Texture(params['texture'], scene);
+			//echo 'materialSphere2.diffuseTexture = new BABYLON.Texture("http://a1.s6img.com/cdn/0018/p/6808232_14801161_ir.jpg", scene);';
+			//echo $objectName.'.material = materialSphere2;';
+		}
 		obj.material = matObj;
 		objDom[matName] = matObj;
 	}
@@ -58,6 +62,7 @@ function addParams(obj, params) {
 		obj.diffuse = new BABYLON.Color3(1, 0, 0);
 		obj.specular = new BABYLON.Color3(1, 0, 0);
 	}
+
 }
 
 function addSphere(params) {
