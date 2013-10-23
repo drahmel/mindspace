@@ -66,6 +66,15 @@ function addParams(obj, params) {
 		obj.diffuse = new BABYLON.Color3(1, 0, 0);
 		obj.specular = new BABYLON.Color3(1, 0, 0);
 	}
+	if(params['scalex'] != undefined) {
+		obj.scaling.x = params['scalex'];
+	}
+	if(params['scaley'] != undefined) {
+		obj.scaling.y = params['scaley'];
+	}
+	if(params['scalez'] != undefined) {
+		obj.scaling.z = params['scalez'];
+	}
 
 }
 
@@ -87,6 +96,17 @@ function addBox(params) {
 	objDom[name] = obj;
 	return obj;
 }
+function addPicture(params) {
+	var width = (params['width'] != undefined) ? params['width'] : 1;
+	params['scalex'] = .01;
+	//params['scalez'] = .1;
+	
+	var obj = BABYLON.Mesh.CreateBox(params['name'], width, scene);
+	addParams(obj, params);
+	objDom[name] = obj;
+	return obj;
+}
+
 function addCylinder(params) {
 	var segments = (params['segments'] != undefined) ? params['segments'] : 20;
 	var width = (params['width'] != undefined) ? params['width'] : 1;
