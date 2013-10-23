@@ -48,9 +48,7 @@ function addParams(obj, params) {
 			matObj.alpha = params['alpha'];
 		}
 		if(params['texture']!=undefined) {
-			//matObj.diffuseTexture = new BABYLON.Texture(params['texture'], scene);
-			//echo 'materialSphere2.diffuseTexture = new BABYLON.Texture("http://a1.s6img.com/cdn/0018/p/6808232_14801161_ir.jpg", scene);';
-			//echo $objectName.'.material = materialSphere2;';
+			matObj.diffuseTexture = new BABYLON.Texture("/images/mindspace/6038.image_5F00_thumb_5F00_0D635956.png", scene);
 		}
 		obj.material = matObj;
 		objDom[matName] = matObj;
