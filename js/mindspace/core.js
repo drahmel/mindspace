@@ -18,21 +18,25 @@ var camera;
 var version = 0.1;
 
 function init(canvasId) {
-        canvas = document.getElementById(canvasId);
-
-        // Load BABYLON 3D engine and set the root directory
-        engine = new BABYLON.Engine(canvas, true);
-
-        // Create a new scene with a camera (mandatory), a light (better) and a sphere (to see the origin)
-        scene = new BABYLON.Scene(engine);
-
-        // Creating a camera looking to the zero point (0,0,0)
-        camera = new BABYLON.ArcRotateCamera("Camera", 1, 0.8, 10, new BABYLON.Vector3(0, 0, 0), scene);
+	canvas = document.getElementById(canvasId);
+	
+	// Load BABYLON 3D engine and set the root directory
+	engine = new BABYLON.Engine(canvas, true);
+	
+	// Create a new scene with a camera (mandatory), a light (better) and a sphere (to see the origin)
+	scene = new BABYLON.Scene(engine);
+	
+	// Creating a camera looking to the zero point (0,0,0)
+	if(false) {
+		camera = new BABYLON.ArcRotateCamera("Camera", 1, 0.8, 10, new BABYLON.Vector3(0, 0, 0), scene);
+		camera.setPosition(new BABYLON.Vector3(-40, 40, 0));
+	} else {
+		camera = new BABYLON.FreeCamera("Camera", new BABYLON.Vector3(-20, 0, -60), scene);
+	}
 	// Creating a omnidirectional light
 	//var light0 = new BABYLON.PointLight("Omni", new BABYLON.Vector3(0, 0, 10), scene);
 	var sun = new BABYLON.PointLight("Omni0", new BABYLON.Vector3(60, 100, 10), scene);
-
-	camera.setPosition(new BABYLON.Vector3(-40, 40, 0));
+	
 	window.addEventListener("resize", function () {
 		engine.resize();
 	});
