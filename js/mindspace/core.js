@@ -51,7 +51,9 @@ function addParams(obj, params) {
 		obj.material = matObj;
 		objDom[matName] = matObj;
 	}
-
+	if(params['rotate']!=undefined) {
+		obj.rotation.x = Math.PI/4;
+	}
 	
 }
 
@@ -65,20 +67,20 @@ function addSphere(params) {
 
 
 function addBox(params) {
-	var obj = BABYLON.Mesh.CreateBox(name, 6.0, scene);
-	obj.position = new BABYLON.Vector3(params['xyz'][0], params['xyz'][1], params['xyz'][2]);
+	var obj = BABYLON.Mesh.CreateBox(params['name'], params['width'], scene);
+	addParams(obj, params);
 	objDom[name] = obj;
 	return obj;
 }
-function addTube(name, x, y, z) {
-	var obj = BABYLON.Mesh.CreateCylinder(name, 3, 3, 20, scene, false);
-	obj.position = new BABYLON.Vector3(x, y, z);
+function addCylinder(params) {
+	var obj = BABYLON.Mesh.CreateCylinder(params['name'], 3, 3, 20, scene, false);
+	addParams(obj, params);
 	objDom[name] = obj;
 	return obj;
 }
-function addDonut(name, x, y, z) {
-	var obj = BABYLON.Mesh.CreateTorus(name, 5, 1, 20, scene, false);
-	obj.position = new BABYLON.Vector3(x, y, z);
+function addDonut(params) {
+	var obj = BABYLON.Mesh.CreateTorus(params['name'], 5, 1, 20, scene, false);
+	addParams(obj, params);
 	objDom[name] = obj;
 	return obj;
 }
