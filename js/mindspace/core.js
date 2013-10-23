@@ -54,7 +54,10 @@ function addParams(obj, params) {
 	if(params['rotate']!=undefined) {
 		obj.rotation.x = Math.PI/4;
 	}
-	
+	if(params['lightcolor']!=undefined) {
+		obj.diffuse = new BABYLON.Color3(1, 0, 0);
+		obj.specular = new BABYLON.Color3(1, 0, 0);
+	}
 }
 
 function addSphere(params) {
@@ -84,11 +87,9 @@ function addDonut(params) {
 	objDom[name] = obj;
 	return obj;
 }
-function addPointLight(name, x, y, z) {
+function addPointLight(params) {
 	var obj = new BABYLON.PointLight(name, new BABYLON.Vector3(1, 5, 1), scene);
-	obj.diffuse = new BABYLON.Color3(1, 0, 0);
-	obj.specular = new BABYLON.Color3(1, 1, 1);
-	obj.position = new BABYLON.Vector3(x, y, z);
+	addParams(obj, params);
 	objDom[name] = obj;
 	return obj;
 }
