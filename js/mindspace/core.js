@@ -11,6 +11,7 @@
  */
 
 var objDom = {};
+var collisionObjects = [];
 var canvas;
 var engine;
 var scene;
@@ -56,10 +57,13 @@ function addParams(obj, params) {
 		}
 		if(params['texture'] != undefined) {
 			matObj.diffuseTexture = new BABYLON.Texture(params['texture'], scene);
+			matObj.emissiveTexture = new BABYLON.Texture(params['texture'], scene);
+			// new BABYLON.Texture(params['texture'], scene);
 			if(params['texture_alpha'] != undefined) {
 				matObj.diffuseTexture.hasAlpha = true;
 			}
 		}
+		
 		obj.material = matObj;
 		objDom[matName] = matObj;
 	}
@@ -79,7 +83,11 @@ function addParams(obj, params) {
 	if(params['scalez'] != undefined) {
 		obj.scaling.z = params['scalez'];
 	}
-
+	if(params['collision'] != undefined) {
+		obj.checkCollisions = true;
+		collisionObjects.push(obj);
+	}
+	
 }
 
 function addSphere(params) {
@@ -102,7 +110,7 @@ function addBox(params) {
 }
 function addPicture(params) {
 	var width = (params['width'] != undefined) ? params['width'] : 1;
-	params['scalex'] = .01;
+	params['scalez'] = .01;
 	//params['scalez'] = .1;
 	
 	var obj = BABYLON.Mesh.CreateBox(params['name'], width, scene);
@@ -211,7 +219,57 @@ function addCameraRestriction() {
 	};
 	scene.registerBeforeRender(beforeRenderFunction);	
 }
+function addGravity() {
+    var ground = BABYLON.Mesh.CreatePlane("ground", 20.0, scene);
+    ground.material = new BABYLON.StandardMaterial("groundMat", scene);
+    ground.material.diffuseColor = new BABYLON.Color3(1,1,1);
+    ground.material.backFaceCulling = false;
+    ground.position = new BABYLON.Vector3(5, -10, -15);
+    ground.rotation = new BABYLON.Vector3(Math.PI / 2, 0, 0);
 
+    	console.log("Adding gravity");
+    	scene.gravity = new BABYLON.Vector3(0, -0.1, 0);
+	scene.collisionsEnabled = true;	
+	camera.checkCollisions = true;
+	//scene.gravity = new BABYLON.Vector3(0, -9.81, 0);
+	//camera.applyGravity = true;
+	camera.ellipsoid = new BABYLON.Vector3(1, 1, 1);
+}
+function addCollision() {
+    scene.registerBeforeRender(function () {
+
+    		   /*
+        //Baloon 1 collision -- Precise = false
+        if (balloon1.intersectsMesh(plan1, false)) {
+            balloon1.material.emissiveColor = new BABYLON.Color4(1, 0, 0, 1);
+        } else {
+            balloon1.material.emissiveColor = new BABYLON.Color4(1, 1, 1, 1);
+        }
+
+        //Baloon 2 collision -- Precise = true
+        if (balloon2.intersectsMesh(plan2, true)) {
+            balloon2.material.emissiveColor = new BABYLON.Color4(1, 0, 0, 1);
+        } else {
+            balloon2.material.emissiveColor = new BABYLON.Color4(1, 1, 1, 1);
+        }
+*/
+        //baloon 3 collision on single point
+        var num = collisionObjects.length;
+        for(var i=0;i<num;i++) {
+		if (collisionObjects[i].intersectsPoint(camera.position)) {
+		    collisionObjects[i].material.emissiveColor = new BABYLON.Color4(1, 0, 0, 1);
+		    window.location = "/mindspace";
+		}
+	}
+/*
+        alpha += 0.01;
+        balloon1.position.y += Math.cos(alpha) / 10;
+        balloon2.position.y += Math.cos(alpha) / 10;
+        balloon3.position.y += Math.cos(alpha) / 10;
+        */
+    });
+	
+}
 function addPlane(name) {
 	var plane = BABYLON.Mesh.CreatePlane(name, 50.0, scene);
 	plane.position = new BABYLON.Vector3(0, 50, 0);
