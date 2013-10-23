@@ -1,48 +1,13 @@
 <?php defined('SYSPATH') OR die('No Direct Script Access');
 
-Class Controller_MindSpace extends Controller
+Class Mindspace
 { 
 	const FNAME = "scene.json";
 	
-	public function action_index()
-	{
-		ini_set('memory_limit', '1990M');
-		ini_set('display_errors', true);
-		set_time_limit(0);
-		$view = View::factory('mindspace/mindspace_index');
-		$scene = $this->getScene();
-		$view->set('scene', $scene);
-		echo $view->render();
-		exit;
-	}
-	public function action_admin()
-	{
-		ini_set('memory_limit', '1990M');
-		ini_set('display_errors', true);
-		set_time_limit(0);
-		$view = View::factory('mindspace/admin/admin_index');
-		$scene = $this->getScene();
-		$view->set('scene', $scene);
-		echo $view->render();
-		echo ll::get_ll_html();
-		exit;
-	}
-	public function action_add()
-	{
-		$scene = $this->getScene();
-		$scene['objects'][] = array(
-			'name' => utils::getRequest('name'),
-			'xyz' => array(utils::getRequest('x'), utils::getRequest('y'), utils::getRequest('z')),
-			'type' => utils::getRequest('type'),
-		);
-		//utils::print_r($scene);
-		$this->saveScene($scene);
-		utils::redirect('/mindspace/admin',200);
-		
-	}
-	function getScene() {
-		$fname = "scene.json";
+	static function getScene() {
+		$fname = self::getFName();
 		if(!is_file($fname)) {
+			ll::_("No file: $fname");
 			$scene = array(
 				'objects' => array(
 					array('name' => 'obj1', 'xyz' => array(-10,0,0)),
@@ -52,12 +17,20 @@ Class Controller_MindSpace extends Controller
 			);
 			$this->saveScene($scene);
 		} else {
+			ll::_("Get scene from file: $fname");
 			$json = file_get_contents($fname);
 			$scene = json_decode($json, true);
+			ll::_("File has ".count($scene['objects'])." objects");
 		}
 		return $scene;		
 	}
-	function saveScene($scene) {
+	static function saveScene($scene) {
 		file_put_contents(self::FNAME, json_encode($scene));
+	}
+	static function getFName() {
+		$user = utils::getRequest('user');
+		$userPrefix = !empty($user)	?	$user.'_'	:	'';
+		$fname = "scene".$userPrefix.".json";
+		return $fname;
 	}
 }
