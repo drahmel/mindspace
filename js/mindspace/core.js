@@ -1,8 +1,21 @@
+/** @license
+ *
+ * Mindspace: WebGL Content Management System (CMS)
+ * ----------------------------------------------
+ * https://github.com/drahmel/mindspace
+ *
+ * Copyright (c) 2013, Dan Rahmel. All rights reserved.
+ * Code provided under the MIT License:
+ * https://github.com/drahmel/mindspace/blob/master/LICENSE-MIT
+ *
+ */
+
 var objDom = {};
 var canvas;
 var engine;
 var scene;
 var camera;
+var version = 0.1;
 
 function init(canvasId) {
         canvas = document.getElementById(canvasId);

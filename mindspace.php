@@ -1,4 +1,17 @@
-<?php defined('SYSPATH') OR die('No Direct Script Access');
+<?php
+
+/** @license
+ *
+ * Mindspace: WebGL Content Management System (CMS)
+ * ----------------------------------------------
+ * https://github.com/drahmel/mindspace
+ *
+ * Copyright (c) 2013, Dan Rahmel. All rights reserved.
+ * Code provided under the MIT License:
+ * https://github.com/drahmel/mindspace/blob/master/LICENSE-MIT
+ *
+ */
+
 
 Class Mindspace
 { 
