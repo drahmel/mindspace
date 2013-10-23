@@ -102,7 +102,10 @@ function addCylinder(params) {
 	return obj;
 }
 function addDonut(params) {
-	var obj = BABYLON.Mesh.CreateTorus(params['name'], 5, 1, 20, scene, false);
+	var segments = (params['segments'] != undefined) ? params['segments'] : 20;
+	var width = (params['width'] != undefined) ? params['width'] : 5;
+	var thickness = (params['thickness'] != undefined) ? params['thickness'] : 1;
+	var obj = BABYLON.Mesh.CreateTorus(params['name'], width, thickness, segments, scene, false);
 	addParams(obj, params);
 	objDom[name] = obj;
 	return obj;
