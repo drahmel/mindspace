@@ -30,20 +30,25 @@ function init(canvasId) {
         camera = new BABYLON.ArcRotateCamera("Camera", 1, 0.8, 10, new BABYLON.Vector3(0, 0, 0), scene);
 	// Creating a omnidirectional light
 	//var light0 = new BABYLON.PointLight("Omni", new BABYLON.Vector3(0, 0, 10), scene);
-	var plane = BABYLON.Mesh.CreatePlane("Plane", 50.0, scene);
-	plane.position = new BABYLON.Vector3(0, 50, 0);
 	var sun = new BABYLON.PointLight("Omni0", new BABYLON.Vector3(60, 100, 10), scene);
 
 	camera.setPosition(new BABYLON.Vector3(-40, 40, 0));
 	
 }
-function addSphere(name, x, y, z) {
+
+function addParams(obj) {
+	
+}
+
+function addSphere(name, x, y, z, params) {
 	var obj = BABYLON.Mesh.CreateSphere(name, 10, 1.0, scene);
 	var materialSphere2 = new BABYLON.StandardMaterial("texture1", scene);		
 	obj.position = new BABYLON.Vector3(-10,0,0);
+	addParams(obj, params);
 	objDom[name] = obj;
 	return obj;
 }
+
 
 function addBox(name, x, y, z) {
 	var obj = BABYLON.Mesh.CreateBox(name, 6.0, scene);
@@ -118,3 +123,26 @@ function addSkybox() {
 	}
 }	
 
+function addCameraRestriction() {
+	var beforeRenderFunction = function () {
+		// Camera
+		if (camera.beta < 0.1)
+			camera.beta = 0.1;
+		else if (camera.beta > (Math.PI / 2) * 0.9)
+			camera.beta = (Math.PI / 2) * 0.9;
+		
+		if (camera.radius > 50) {
+			camera.radius = 50;
+		}
+		
+		if (camera.radius < 5) {
+			camera.radius = 5;
+		}
+	};
+	scene.registerBeforeRender(beforeRenderFunction);	
+}
+
+function addPlane(name) {
+	var plane = BABYLON.Mesh.CreatePlane(name, 50.0, scene);
+	plane.position = new BABYLON.Vector3(0, 50, 0);
+}
