@@ -47,6 +47,8 @@ function addSphere(name, x, y, z) {
 
 function addBox(name, x, y, z) {
 	var obj = BABYLON.Mesh.CreateBox(name, 6.0, scene);
+	//var material1 = new BABYLON.StandardMaterial("mat1", scene);
+	//material1.diffuseColor = new BABYLON.Color3(1, 1, 0);
 	obj.position = new BABYLON.Vector3(x, y, z);
 	objDom[name] = obj;
 	return obj;
@@ -71,3 +73,48 @@ function addPointLight(name, x, y, z) {
 	objDom[name] = obj;
 	return obj;
 }
+
+function addFog() {
+	scene.fogMode = BABYLON.Scene.FOGMODE_EXP;
+	//BABYLON.Scene.FOGMODE_NONE;
+	//BABYLON.Scene.FOGMODE_EXP;
+	//BABYLON.Scene.FOGMODE_EXP2;
+	//BABYLON.Scene.FOGMODE_LINEAR;
+	
+	scene.fogColor = new BABYLON.Color3(0.9, 0.9, 0.85);
+	scene.fogDensity = 0.01;
+	
+	//Only if LINEAR
+	//scene.fogStart = 20.0;
+	//scene.fogEnd = 60.0;
+	var alpha = 0;
+	if(false) {
+		scene.registerBeforeRender(function () {
+			scene.fogDensity = Math.cos(alpha)/10;
+			alpha+=0.02;
+		});
+	}
+}
+
+function addSkybox() {
+	// Skybox
+	var skybox = BABYLON.Mesh.CreateBox("skyBox", 1000.0, scene);
+	var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", scene);
+	skyboxMaterial.backFaceCulling = false;
+	skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("/images/mindspace/skybox/skybox", scene);
+	skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
+	skyboxMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0);
+	skyboxMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
+	skybox.material = skyboxMaterial;
+	if(false) {
+		var skybox = BABYLON.Mesh.CreateBox("skyBox", 100.0, scene);
+		var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", scene);
+		skyboxMaterial.backFaceCulling = false;
+		skybox.material = skyboxMaterial;
+		skyboxMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0);
+		skyboxMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
+		skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("/images/mindspace/skybox/skybox", scene);
+		skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;	
+	}
+}	
+
