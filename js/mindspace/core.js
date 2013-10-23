@@ -36,29 +36,37 @@ function init(canvasId) {
 	
 }
 
-function addParams(obj) {
+function addParams(obj, params) {
 	//echo 'var materialSphere2 = new BABYLON.StandardMaterial("texture1", scene);';
 	
 	//echo 'materialSphere2.diffuseTexture = new BABYLON.Texture("http://a1.s6img.com/cdn/0018/p/6808232_14801161_ir.jpg", scene);';
 	//echo $objectName.'.material = materialSphere2;';
+	if(params['xyz']!=undefined) {
+		obj.position = new BABYLON.Vector3(params['xyz'][0], params['xyz'][1], params['xyz'][2]);
+	}
+	if(params['color']!=undefined) {
+		var matName = params['name']+"_mat";
+		var matObj = new BABYLON.StandardMaterial(matName, scene);
+		matObj.diffuseColor = new BABYLON.Color3(params['color'][0], params['color'][1], params['color'][2]);
+		obj.material = matObj;
+		objDom[matName] = matObj;
+	}
+
 	
 }
 
 function addSphere(params) {
-	var obj = BABYLON.Mesh.CreateSphere(params['name'], 10, 1.0, scene);
+	var obj = BABYLON.Mesh.CreateSphere(params['name'], 10, params['radius'], scene);
 	var materialSphere2 = new BABYLON.StandardMaterial("texture1", scene);		
-	obj.position = new BABYLON.Vector3(params['xyz'][0], params['xyz'][1], params['xyz'][2]);
 	addParams(obj, params);
 	objDom[name] = obj;
 	return obj;
 }
 
 
-function addBox(name, x, y, z) {
+function addBox(params) {
 	var obj = BABYLON.Mesh.CreateBox(name, 6.0, scene);
-	//var material1 = new BABYLON.StandardMaterial("mat1", scene);
-	//material1.diffuseColor = new BABYLON.Color3(1, 1, 0);
-	obj.position = new BABYLON.Vector3(x, y, z);
+	obj.position = new BABYLON.Vector3(params['xyz'][0], params['xyz'][1], params['xyz'][2]);
 	objDom[name] = obj;
 	return obj;
 }
