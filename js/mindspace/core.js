@@ -33,6 +33,9 @@ function init(canvasId) {
 	var sun = new BABYLON.PointLight("Omni0", new BABYLON.Vector3(60, 100, 10), scene);
 
 	camera.setPosition(new BABYLON.Vector3(-40, 40, 0));
+	window.addEventListener("resize", function () {
+		engine.resize();
+	});
 	
 }
 
@@ -67,7 +70,9 @@ function addParams(obj, params) {
 }
 
 function addSphere(params) {
-	var obj = BABYLON.Mesh.CreateSphere(params['name'], 10, params['radius'], scene);
+	var segments = (params['segments'] != undefined) ? params['segments'] : 10;
+	var width = (params['width'] != undefined) ? params['width'] : 1;
+	var obj = BABYLON.Mesh.CreateSphere(params['name'], segments, width, scene);
 	var materialSphere2 = new BABYLON.StandardMaterial("texture1", scene);		
 	addParams(obj, params);
 	objDom[name] = obj;
@@ -76,13 +81,22 @@ function addSphere(params) {
 
 
 function addBox(params) {
-	var obj = BABYLON.Mesh.CreateBox(params['name'], params['width'], scene);
+	var width = (params['width'] != undefined) ? params['width'] : 1;
+	var obj = BABYLON.Mesh.CreateBox(params['name'], width, scene);
 	addParams(obj, params);
 	objDom[name] = obj;
 	return obj;
 }
 function addCylinder(params) {
-	var obj = BABYLON.Mesh.CreateCylinder(params['name'], 3, 3, 20, scene, false);
+	var segments = (params['segments'] != undefined) ? params['segments'] : 20;
+	var width = (params['width'] != undefined) ? params['width'] : 1;
+	var widthTop = (params['widthtop'] != undefined) ? params['widthtop'] : 0;
+	var widthBottom = (params['widthbottom'] != undefined) ? params['widthbottom'] : 0;
+	if(widthTop == 0 && widthBottom == 0) {
+		widthTop = width;
+		widthBottom = width;
+	}
+	var obj = BABYLON.Mesh.CreateCylinder(params['name'], widthTop, widthBottom, segments, scene, false);
 	addParams(obj, params);
 	objDom[name] = obj;
 	return obj;
