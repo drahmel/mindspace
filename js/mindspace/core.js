@@ -47,8 +47,11 @@ function addParams(obj, params) {
 		if(params['alpha']!=undefined) {
 			matObj.alpha = params['alpha'];
 		}
-		if(params['texture']!=undefined) {
-			matObj.diffuseTexture = new BABYLON.Texture("/images/mindspace/6038.image_5F00_thumb_5F00_0D635956.png", scene);
+		if(params['texture'] != undefined) {
+			matObj.diffuseTexture = new BABYLON.Texture(params['texture'], scene);
+			if(params['texture_alpha'] != undefined) {
+				matObj.diffuseTexture.hasAlpha = true;
+			}
 		}
 		obj.material = matObj;
 		objDom[matName] = matObj;
