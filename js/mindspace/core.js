@@ -111,7 +111,15 @@ function addDonut(params) {
 	return obj;
 }
 function addPointLight(params) {
-	var obj = new BABYLON.PointLight(name, new BABYLON.Vector3(1, 5, 1), scene);
+	var lightx = 1;
+	var lighty = 5;
+	var lightz = 1;
+	if(params['lightxyz']!=undefined) {
+		lightx = params['lightxyz'][0];
+		lighty = params['lightxyz'][1];
+		lightz = params['lightxyz'][2];
+	}
+	var obj = new BABYLON.PointLight(name, new BABYLON.Vector3(lightx, lighty, lightz), scene);
 	addParams(obj, params);
 	objDom[name] = obj;
 	return obj;
