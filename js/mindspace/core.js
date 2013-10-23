@@ -37,13 +37,17 @@ function init(canvasId) {
 }
 
 function addParams(obj) {
+	//echo 'var materialSphere2 = new BABYLON.StandardMaterial("texture1", scene);';
+	
+	//echo 'materialSphere2.diffuseTexture = new BABYLON.Texture("http://a1.s6img.com/cdn/0018/p/6808232_14801161_ir.jpg", scene);';
+	//echo $objectName.'.material = materialSphere2;';
 	
 }
 
-function addSphere(name, x, y, z, params) {
-	var obj = BABYLON.Mesh.CreateSphere(name, 10, 1.0, scene);
+function addSphere(params) {
+	var obj = BABYLON.Mesh.CreateSphere(params['name'], 10, 1.0, scene);
 	var materialSphere2 = new BABYLON.StandardMaterial("texture1", scene);		
-	obj.position = new BABYLON.Vector3(-10,0,0);
+	obj.position = new BABYLON.Vector3(params['xyz'][0], params['xyz'][1], params['xyz'][2]);
 	addParams(obj, params);
 	objDom[name] = obj;
 	return obj;
