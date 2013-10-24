@@ -110,7 +110,7 @@ function addBox(params) {
 }
 function addPicture(params) {
 	var width = (params['width'] != undefined) ? params['width'] : 1;
-	params['scalez'] = .01;
+	params['scalez'] = .05;
 	//params['scalez'] = .1;
 	
 	var obj = BABYLON.Mesh.CreateBox(params['name'], width, scene);
@@ -220,17 +220,17 @@ function addCameraRestriction() {
 	scene.registerBeforeRender(beforeRenderFunction);	
 }
 function addGravity() {
-    var ground = BABYLON.Mesh.CreatePlane("ground", 20.0, scene);
-    ground.material = new BABYLON.StandardMaterial("groundMat", scene);
-    ground.material.diffuseColor = new BABYLON.Color3(1,1,1);
-    ground.material.backFaceCulling = false;
-    ground.position = new BABYLON.Vector3(5, -10, -15);
-    ground.rotation = new BABYLON.Vector3(Math.PI / 2, 0, 0);
+	var ground = BABYLON.Mesh.CreatePlane("ground", 20.0, scene);
+	ground.material = new BABYLON.StandardMaterial("groundMat", scene);
+	ground.material.diffuseColor = new BABYLON.Color3(1,1,1);
+	ground.material.backFaceCulling = false;
+	ground.position = new BABYLON.Vector3(5, -10, -15);
+	ground.rotation = new BABYLON.Vector3(Math.PI / 2, 0, 0);
 
     	console.log("Adding gravity");
     	scene.gravity = new BABYLON.Vector3(0, -0.1, 0);
 	scene.collisionsEnabled = true;	
-	camera.checkCollisions = true;
+	//camera.checkCollisions = true;
 	//scene.gravity = new BABYLON.Vector3(0, -9.81, 0);
 	//camera.applyGravity = true;
 	camera.ellipsoid = new BABYLON.Vector3(1, 1, 1);
