@@ -286,7 +286,7 @@ function addPlane(name) {
 	plane.position = new BABYLON.Vector3(0, 50, 0);
 }
 function addEmitter(name) {
-	var fountain = BABYLON.Mesh.CreateBox("fountain", 1.0, scene);
+	var fountain = BABYLON.Mesh.CreateBox("fountain", 0.1, scene);
 	var particleSystem = new BABYLON.ParticleSystem("particles", 2000, scene);
 	particleSystem.particleTexture = new BABYLON.Texture("/images/mindspace/Flare.png", scene);
 	particleSystem.textureMask = new BABYLON.Color4(0.1, 0.8, 0.8, 1.0);
@@ -297,7 +297,17 @@ function addEmitter(name) {
 	particleSystem.minSize = 0.1;
 	particleSystem.maxSize = 0.5;
 	particleSystem.minLifeTime = 0.3;
-	particleSystem.maxLifeTime = 1.5;
-	particleSystem.emitRate = 1000;
+	particleSystem.maxLifeTime = 5.5;
+	particleSystem.emitRate = 500;
+	particleSystem.blendMode = BABYLON.ParticleSystem.BLENDMODE_ONEONE;
+	particleSystem.gravity = new BABYLON.Vector3(0, -9.81, 0);
+	particleSystem.direction1 = new BABYLON.Vector3(-7, 8, 3);
+	particleSystem.direction2 = new BABYLON.Vector3(7, 8, -3);
+	particleSystem.minAngularSpeed = 0;
+	particleSystem.maxAngularSpeed = Math.PI;
+	particleSystem.minEmitPower = 1;
+	particleSystem.maxEmitPower = 3;
+	
+	particleSystem.updateSpeed = 0.005;
 	particleSystem.start();
 }
