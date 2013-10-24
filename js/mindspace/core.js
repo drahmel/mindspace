@@ -192,10 +192,10 @@ function addSkybox() {
 
 	var postId = 0; // post_id to use for tinting.  152712 -- red.  375914 -- blue.  906805 -- pink
 
-	// Which skybox to use?  plainsbox, alienbox, or cloudbox
-	var skyboxName = 'plainsbox';
-	var skyboxName = 'alienbox';
-	var skyboxName = 'cloudbox';
+	// Which skybox to use?
+	var skyboxName = 'snowbox';
+//	var skyboxName = 'lavabox';
+//	var skyboxName = 'cloudbox';
 
 	skyboxMaterial.backFaceCulling = false;
 	skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("/services/mindspace/skybox?post_id="+postId+"&file="+skyboxName, scene);
