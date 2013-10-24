@@ -93,7 +93,42 @@ function addParams(obj, params) {
 		obj.portal = params['portal'];
 		portalObjects.push(obj);
 	}
-	
+	if(params['animation'] != undefined) {
+		var numFrames = addAnimation(obj, params);
+		scene.beginAnimation(obj, 0, numFrames, true);
+	}
+}
+
+function addAnimation(obj, params) {
+	var numFrames = 0;
+	if(params['animation'] == 'breathe') {
+		var animationBox = new BABYLON.Animation(
+			name+"_anim", "scaling.x", 30,
+			BABYLON.Animation.ANIMATIONTYPE_FLOAT,
+			BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE
+		);
+		var keys = [];  
+		keys.push({ frame: 0, value: 1 });
+		keys.push({ frame: 20, value: 0.2 });
+		keys.push({ frame: 100, value: 1 });
+		animationBox.setKeys(keys);
+		obj.animations.push(animationBox);
+		numFrames = 100;
+	} else if(params['animation'] == 'move') {
+		var animationBox = new BABYLON.Animation(
+			name+"_anim", "position.x", 60,
+			BABYLON.Animation.ANIMATIONTYPE_FLOAT,
+			BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE
+		);
+		var keys = [];  
+		keys.push({ frame: 0, value: 1 });
+		keys.push({ frame: 100, value: 100 });
+		keys.push({ frame: 200, value: 1 });
+		animationBox.setKeys(keys);
+		obj.animations.push(animationBox);
+		numFrames = 200;
+	}
+	return numFrames;
 }
 
 function addSphere(params) {
