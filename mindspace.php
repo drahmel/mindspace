@@ -31,12 +31,13 @@ Class Mindspace
 		self::OBJECT_TYPE_PICTURE => 'Picture',
 	);
 
-	static function getScene($user) {
-		$fname = self::_getFName($user);
+	static function getScene($sceneId) {
+		$sceneId = (int)$sceneId;
+		$fname = self::_getFName($sceneId);
 
 		if (!is_file($fname)) {
 			$scene = array(
-				'user' => $user,
+				'scene_id' => $sceneId,
 				'objects' => array(
 					array('name' => 'Ball1', 'type' => 1, 'xyz' => array(-10,0,0), 'width' => 1, 'color' => array(0, 1, 0), 'active' => TRUE),
 					array('name' => 'Ball2', 'type' => 1, 'xyz' => array(-10,-10,0), 'width' => 2, 'color' => array(0, 0, 1), 'active' => TRUE),
@@ -61,11 +62,15 @@ Class Mindspace
 					array('name' => 'Picture1', 'type' => 6, 'xyz' => array(0, -20,-10), 'width' => 8, 'color' => array(.5, .5, 0), 'texture' => "/images/mindspace/tree.png", 'active' => TRUE),
 				)
 			);
-			self::saveScene($scene, $user);
+			self::saveScene($scene, $sceneId);
 
 		} else {
 			$json = file_get_contents($fname);
-			$scene = json_decode($json, true);
+			$scene = json_decode($json, TRUE) ;
+		}
+
+		foreach ($scene['objects'] as $objId => $object) {
+			$scene['objects'][$objId] = $object + self::getEmptyObject($object['type']);
 		}
 
 		return $scene;		
