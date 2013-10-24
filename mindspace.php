@@ -19,7 +19,7 @@ Class Mindspace
 	
 	static function getScene($addSampleData = TRUE) {
 		$fname = self::getFName();
-		if(!is_file(DAT_PATH.$fname)) {
+		if(!is_file($fname)) {
 			//ll::_("No file: $fname");
 			$scene = array('objects' => array());
 			if($addSampleData) {
@@ -50,20 +50,22 @@ Class Mindspace
 			self::saveScene($scene);
 		} else {
 			//ll::_("Get scene from file: $fname");
-			$json = file_get_contents(DAT_PATH.$fname);
+			$json = file_get_contents($fname);
 			$scene = json_decode($json, true);
 			//ll::_("File has ".count($scene['objects'])." objects");
 		}
 		return $scene;		
 	}
 	static function saveScene($scene) {
-		file_put_contents(DAT_PATH.self::FNAME, json_encode($scene));
+		$fname = self::getFName();
+		file_put_contents($fname, json_encode($scene));
 	}
 	static function getFName() {
 		$user = self::getRequest('user');
 		$userPrefix = !empty($user)	?	$user.'_'	:	'';
 		$fname = "scene".$userPrefix.".json";
-		return $fname;
+		$path = PUB_PATH.'spaces/mindspace/';
+		return $path.$fname;
 	}
 	static function getRequest($varname,$defaultVal='',$varType='str',$mysqlEscape=false,$htmlDecode=false) {
 		$outVal = $defaultVal;
