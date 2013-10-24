@@ -189,8 +189,9 @@ function addSkybox() {
 	// Skybox
 	var skybox = BABYLON.Mesh.CreateBox("skyBox", 1000.0, scene);
 	var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", scene);
+	var postId = 0; //375914; // Eventually this will become the Post ID that we want to use for tinting
 	skyboxMaterial.backFaceCulling = false;
-	skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("/images/mindspace/skybox/skybox", scene);
+	skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("/services/mindspace/skybox?post_id="+postId+"&file=skybox", scene);
 	skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
 	skyboxMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0);
 	skyboxMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
