@@ -128,6 +128,8 @@ Class Mindspace
 	static function getDefaultScene()
 	{
 	return array(
+		'skybox' => 'cloudbox',
+		'post_id' => '',
 		'objects' => array(
 			array('name' => 'Ball1', 'type' => 1, 'xyz' => array(-10,0,0), 'width' => 1, 'color' => array(0, 1, 0), 'active' => TRUE),
 			array('name' => 'Ball2', 'type' => 1, 'xyz' => array(-10,-10,0), 'width' => 2, 'color' => array(0, 0, 1), 'active' => TRUE),

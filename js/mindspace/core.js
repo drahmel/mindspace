@@ -220,15 +220,15 @@ function addFog() {
 	}
 }
 
-function addSkybox() {
+function addSkybox(skyboxName, postId) {
 	// Skybox
 	var skybox = BABYLON.Mesh.CreateBox("skyBox", 1000.0, scene);
 	var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", scene);
 
-	var postId = 0; // post_id to use for tinting.  152712 -- red.  375914 -- blue.  906805 -- pink
+//	var postId = 0; // post_id to use for tinting.  152712 -- red.  375914 -- blue.  906805 -- pink
 
 	// Which skybox to use?
-	var skyboxName = 'snowbox';
+//	var skyboxName = 'snowbox';
 //	var skyboxName = 'lavabox';
 //	var skyboxName = 'cloudbox';
 
