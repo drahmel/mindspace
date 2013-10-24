@@ -11,7 +11,7 @@
  */
 
 var objDom = {};
-var collisionObjects = [];
+var portalObjects = [];
 var canvas;
 var engine;
 var scene;
@@ -85,7 +85,10 @@ function addParams(obj, params) {
 	}
 	if(params['collision'] != undefined) {
 		obj.checkCollisions = true;
-		collisionObjects.push(obj);
+	}
+	if(params['portal'] != undefined) {
+		obj.portal = params['portal'];
+		portalObjects.push(obj);
 	}
 	
 }
@@ -238,30 +241,23 @@ function addGravity() {
 function addCollision() {
     scene.registerBeforeRender(function () {
 
-    		   /*
-        //Baloon 1 collision -- Precise = false
-        if (balloon1.intersectsMesh(plan1, false)) {
-            balloon1.material.emissiveColor = new BABYLON.Color4(1, 0, 0, 1);
-        } else {
-            balloon1.material.emissiveColor = new BABYLON.Color4(1, 1, 1, 1);
-        }
-
-        //Baloon 2 collision -- Precise = true
-        if (balloon2.intersectsMesh(plan2, true)) {
-            balloon2.material.emissiveColor = new BABYLON.Color4(1, 0, 0, 1);
-        } else {
-            balloon2.material.emissiveColor = new BABYLON.Color4(1, 1, 1, 1);
-        }
-*/
-        //baloon 3 collision on single point
-        var num = collisionObjects.length;
-        for(var i=0;i<num;i++) {
-		if (collisionObjects[i].intersectsPoint(camera.position)) {
-		    collisionObjects[i].material.emissiveColor = new BABYLON.Color4(1, 0, 0, 1);
-		    window.location = "/mindspace";
+	if(false) {
+		//Baloon 1 collision -- Precise = false
+		if (balloon1.intersectsMesh(plan1, false)) {
+			balloon1.material.emissiveColor = new BABYLON.Color4(1, 0, 0, 1);
+		} else {
+			balloon1.material.emissiveColor = new BABYLON.Color4(1, 1, 1, 1);
 		}
 	}
-/*
+
+        var num = portalObjects.length;
+        for(var i=0;i<num;i++) {
+		if (portalObjects[i].intersectsPoint(camera.position)) {
+		    portalObjects[i].material.emissiveColor = new BABYLON.Color4(1, 0, 0, 1);
+		    window.location = portalObjects[i].portal;
+		}
+	}
+	/*
         alpha += 0.01;
         balloon1.position.y += Math.cos(alpha) / 10;
         balloon2.position.y += Math.cos(alpha) / 10;
