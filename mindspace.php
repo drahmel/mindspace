@@ -14,9 +14,23 @@
 
 
 Class Mindspace
-{ 
-	const FNAME = "scene.json";
-	
+{
+	const OBJECT_TYPE_BALL = 1;
+	const OBJECT_TYPE_BOX = 2;
+	const OBJECT_TYPE_CYLINDER = 3;
+	const OBJECT_TYPE_DONUT = 4;
+	const OBJECT_TYPE_POINTLIGHT = 5;
+	const OBJECT_TYPE_PICTURE = 6;
+
+	static $objectTypes = array(
+		self::OBJECT_TYPE_BALL => 'Ball',
+		self::OBJECT_TYPE_BOX => 'Box',
+		self::OBJECT_TYPE_CYLINDER => 'Cylinder',
+		self::OBJECT_TYPE_DONUT => 'Donut',
+		self::OBJECT_TYPE_POINTLIGHT => 'PointLight',
+		self::OBJECT_TYPE_PICTURE => 'Picture',
+	);
+
 	static function getScene($user) {
 		$fname = self::_getFName($user);
 
@@ -58,14 +72,74 @@ Class Mindspace
 	}
 
 
-	static function saveScene($scene, $userId) {
-		$fname = self::_getFName($userId);
+	static function saveScene($scene, $sceneId) {
+		$fname = self::_getFName($sceneId);
 		file_put_contents($fname, json_encode($scene));
 	}
 
 
-	protected static function _getFName($userId) {
-		$fname = $userId ? "scene_$userId.json" : "scene_0.json";
+	protected static function _getFName($sceneId) {
+		$sceneId = (int)$sceneId;
+		$fname = $sceneId ? "scene_$sceneId.json" : "scene_0.json";
 		return PUB_PATH . 'spaces/mindspace/' .$fname;
+	}
+
+
+	static function getEmptyObject($type)
+	{
+		$objects = array(
+			self::OBJECT_TYPE_BALL => array(
+				'name' => 'New Ball',
+				'width' => 3,
+				'active' => TRUE,
+				'texture' => '',
+				'xyz' => array(0, 0, 0),
+				'color' => array(0, 0, 0),
+			),
+			self::OBJECT_TYPE_BOX => array(
+				'name' => 'New Box',
+				'width' => 3,
+				'alpha' => 1,
+				'scaley' => 2,
+				'active' => TRUE,
+				'xyz' => array(0, 0, 0),
+				'color' => array(0, 0, 0),
+			),
+			self::OBJECT_TYPE_CYLINDER => array(
+				'name' => 'New Cylinder',
+				'width' => 3,
+				'scaley' => 2,
+				#'widthtop' => 5,
+				#'widthbottom' => 1,
+				'active' => TRUE,
+				'xyz' => array(0, 0, 0),
+				'color' => array(0, 0, 0),
+			),
+			self::OBJECT_TYPE_DONUT => array(
+				'name' => 'New Donut',
+				'width' => 3,
+				'collision' => 1,
+				'active' => TRUE,
+				'xyz' => array(0, 0, 0),
+				'color' => array(0, 0, 0),
+			),
+			self::OBJECT_TYPE_POINTLIGHT => array(
+				'name' => 'New PointLight',
+				'active' => TRUE,
+				'xyz' => array(0, 0, 0),
+				'lightcolor' => array(0, 0, 0),
+			),
+			self::OBJECT_TYPE_PICTURE => array(
+				'name' => 'New Picture',
+				'width' => 8,
+				'texture' => '',
+				'active' => TRUE,
+				'xyz' => array(0, 0, 0),
+				'color' => array(.5, .5, 0),
+			),
+		);
+
+		$object = isset($objects[$type]) ? $objects[$type] : $objects[self::OBJECT_TYPE_BALL];
+		return $object + array('type' => $type);
 	}
 }
