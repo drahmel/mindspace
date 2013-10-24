@@ -285,3 +285,19 @@ function addPlane(name) {
 	var plane = BABYLON.Mesh.CreatePlane(name, 50.0, scene);
 	plane.position = new BABYLON.Vector3(0, 50, 0);
 }
+function addEmitter(name) {
+	var fountain = BABYLON.Mesh.CreateBox("fountain", 1.0, scene);
+	var particleSystem = new BABYLON.ParticleSystem("particles", 2000, scene);
+	particleSystem.particleTexture = new BABYLON.Texture("/images/mindspace/Flare.png", scene);
+	particleSystem.textureMask = new BABYLON.Color4(0.1, 0.8, 0.8, 1.0);
+	particleSystem.emitter = fountain;
+	particleSystem.color1 = new BABYLON.Color4(0.7, 0.8, 1.0, 1.0);
+	particleSystem.color2 = new BABYLON.Color4(0.2, 0.5, 1.0, 1.0);
+	particleSystem.colorDead = new BABYLON.Color4(0, 0, 0.2, 0.0);
+	particleSystem.minSize = 0.1;
+	particleSystem.maxSize = 0.5;
+	particleSystem.minLifeTime = 0.3;
+	particleSystem.maxLifeTime = 1.5;
+	particleSystem.emitRate = 1000;
+	particleSystem.start();
+}
