@@ -45,8 +45,11 @@ function init(canvasId) {
 }
 
 function addParams(obj, params) {
-	if(params['xyz']!=undefined) {
+	if(params['xyz'] != undefined) {
 		obj.position = new BABYLON.Vector3(params['xyz'][0], params['xyz'][1], params['xyz'][2]);
+	}
+	if(params['type'] != undefined) {
+		obj.type = params['type'];
 	}
 	if(params['color']!=undefined) {
 		var matName = params['name']+"_mat";
@@ -264,7 +267,19 @@ function addCollision() {
         balloon3.position.y += Math.cos(alpha) / 10;
         */
     });
-	
+}
+function addSelection() {
+	window.addEventListener("click", function (evt) {
+		var pickResult = scene.pick(evt.clientX, evt.clientY);
+		if(pickResult.hit == true) {
+			if(pickResult.pickedMesh.type != undefined) {
+				pickResult.pickedMesh.position.x += 10;
+				console.log(pickResult);
+				console.log(pickResult.pickedMesh.type);
+			}
+		}
+		
+	});	
 }
 function addPlane(name) {
 	var plane = BABYLON.Mesh.CreatePlane(name, 50.0, scene);
