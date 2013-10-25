@@ -59,7 +59,7 @@ function addParams(obj, params) {
 		if(params['alpha']!=undefined) {
 			matObj.alpha = params['alpha'];
 		}
-		if(params['texture'] != undefined) {
+		if(params['texture'] != undefined && params['texture'].length != 0) {
 			matObj.diffuseTexture = new BABYLON.Texture(params['texture'], scene);
 			matObj.emissiveTexture = new BABYLON.Texture(params['texture'], scene);
 			// new BABYLON.Texture(params['texture'], scene);
@@ -86,6 +86,9 @@ function addParams(obj, params) {
 	}
 	if(params['scalez'] != undefined) {
 		obj.scaling.z = params['scalez'];
+	}
+	if(params['rotatexyz'] != undefined) {
+		obj.rotation = new BABYLON.Vector3(params['rotatexyz'][0], params['rotatexyz'][1], params['rotatexyz'][2]);
 	}
 	if(params['collision'] != undefined) {
 		obj.checkCollisions = true;
@@ -358,8 +361,8 @@ function addEmitter(params) {
 	particleSystem.maxAngularSpeed = Math.PI;
 	particleSystem.minEmitPower = 1;
 	particleSystem.maxEmitPower = 3;
-	particleSystem.minEmitBox = new BABYLON.Vector3(-30, 0, -30); // Starting all From
-	particleSystem.maxEmitBox = new BABYLON.Vector3(30, 0, 30); // To...
+	particleSystem.minEmitBox = new BABYLON.Vector3(-60, 0, -60); // Starting all From
+	particleSystem.maxEmitBox = new BABYLON.Vector3(60, 0, 60); // To...
 	
 	particleSystem.updateSpeed = 0.005;
 	//fountain = obj;

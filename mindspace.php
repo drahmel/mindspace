@@ -135,6 +135,7 @@ Class Mindspace
 				'active' => TRUE,
 				'portal' => '',
 				'xyz' => array(0, 0, 0),
+				'rotatexyz' => array(0, 0, 0),
 				'color' => array(.5, .5, 0),
 			),
 			self::OBJECT_TYPE_PLANE => array(
