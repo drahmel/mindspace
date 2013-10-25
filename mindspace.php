@@ -21,6 +21,11 @@ Class Mindspace
 	const OBJECT_TYPE_DONUT = 4;
 	const OBJECT_TYPE_POINTLIGHT = 5;
 	const OBJECT_TYPE_PICTURE = 6;
+	const OBJECT_TYPE_PLANE = 7;
+	const OBJECT_TYPE_CAMERA = 8;
+	const OBJECT_TYPE_SKYBOX = 9;
+	const OBJECT_TYPE_EMITTER = 10;
+	const OBJECT_TYPE_BGSOUND = 11;
 
 	static $objectTypes = array(
 		self::OBJECT_TYPE_BALL => 'Ball',
@@ -29,6 +34,11 @@ Class Mindspace
 		self::OBJECT_TYPE_DONUT => 'Donut',
 		self::OBJECT_TYPE_POINTLIGHT => 'PointLight',
 		self::OBJECT_TYPE_PICTURE => 'Picture',
+		self::OBJECT_TYPE_PLANE => 'Plane',
+		self::OBJECT_TYPE_CAMERA => 'Camera',
+		self::OBJECT_TYPE_SKYBOX => 'Skybox',
+		self::OBJECT_TYPE_EMITTER => 'Emitter',
+		self::OBJECT_TYPE_BGSOUND => 'Background Sound',
 	);
 
 	static function getScene($sceneId) {
@@ -141,6 +151,37 @@ Class Mindspace
 				'active' => TRUE,
 				'xyz' => array(0, 0, 0),
 				'color' => array(.5, .5, 0),
+			),
+			self::OBJECT_TYPE_PLANE => array(
+				'name' => self::$objectTypes[self::OBJECT_TYPE_PLANE].'_'.rand(1000,10000),
+				'active' => TRUE,
+				'xyz' => array(0, 0, 0),
+				'color' => array(.5, .5, 0),
+			),
+			self::OBJECT_TYPE_CAMERA => array(
+				'name' => self::$objectTypes[self::OBJECT_TYPE_CAMERA].'_'.rand(1000,10000),
+				'active' => TRUE,
+				'xyz' => array(0, 0, 0),
+				'color' => array(.5, .5, 0),
+			),
+			self::OBJECT_TYPE_SKYBOX => array(
+				'name' => self::$objectTypes[self::OBJECT_TYPE_SKYBOX].'_'.rand(1000,10000),
+				'active' => TRUE,
+				'xyz' => array(0, 0, 0),
+				'color' => array(.5, .5, 0),
+			),
+			self::OBJECT_TYPE_EMITTER => array(
+				'name' => self::$objectTypes[self::OBJECT_TYPE_EMITTER].'_'.rand(1000,10000),
+				'active' => TRUE,
+				'xyz' => array(0, 0, 0),
+				'color' => array(.5, .5, 0),
+			),
+			self::OBJECT_TYPE_BGSOUND => array(
+				'name' => self::$objectTypes[self::OBJECT_TYPE_BGSOUND].'_'.rand(1000,10000),
+				'active' => TRUE,
+				'xyz' => array(0, 0, 0),
+				'color' => array(.5, .5, 0),
+				'file' => "sound1.mp3",
 			),
 		);
 
