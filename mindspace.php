@@ -166,6 +166,8 @@ Class Mindspace
 				'name' => self::$objectTypes[self::OBJECT_TYPE_EMITTER].'_'.rand(1000,10000),
 				'active' => TRUE,
 				'xyz' => array(0, 0, 0),
+				'particle_color1' => array(1.0, 1.0, 1.0),
+				'particle_color2' => array(0.2, 0.5, 1.0),
 				'color' => array(.5, .5, 0),
 			),
 			self::OBJECT_TYPE_BGSOUND => array(

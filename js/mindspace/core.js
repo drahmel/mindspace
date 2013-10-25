@@ -369,12 +369,18 @@ function addPlane(params) {
 function addEmitter(params) {
 	var particle = (params['particle'] != undefined) ? params['particle'] : "/images/mindspace/Flare.png";
 	var fountain = BABYLON.Mesh.CreateBox("fountain", .1, scene);
-	var particleSystem = new BABYLON.ParticleSystem("particles", 4000, scene);
+	var particle_num = (params['particle_num'] != undefined) ? parseFloat(params['particle_num']) : 2000;
+	var particleSystem = new BABYLON.ParticleSystem("particles", particle_num, scene);
 	particleSystem.particleTexture = new BABYLON.Texture(particle, scene);
 	particleSystem.textureMask = new BABYLON.Color4(0.1, 0.8, 0.8, 1.0);
 	particleSystem.emitter = fountain;
-	particleSystem.color1 = new BABYLON.Color4(1.0, 1.0, 1.0, 1.0);
-	particleSystem.color2 = new BABYLON.Color4(0.2, 0.5, 1.0, 1.0);
+	if(params['particle_color1'] == undefined) {
+		particleSystem.color1 = new BABYLON.Color4(1.0, 1.0, 1.0, 1.0);
+		particleSystem.color2 = new BABYLON.Color4(0.2, 0.5, 1.0, 1.0);
+	} else {
+		particleSystem.color1 = new BABYLON.Color4(params['particle_color1'][0], params['particle_color1'][1], params['particle_color1'][2], 1.0);
+		particleSystem.color2 = new BABYLON.Color4(params['particle_color2'][0], params['particle_color2'][1], params['particle_color2'][2], 1.0);		
+	}
 	particleSystem.colorDead = new BABYLON.Color4(0, 0, 0.2, 0.0);
 	particleSystem.minSize = 0.1;
 	particleSystem.maxSize = 0.5;
@@ -383,14 +389,16 @@ function addEmitter(params) {
 	particleSystem.emitRate = 500;
 	particleSystem.blendMode = BABYLON.ParticleSystem.BLENDMODE_ONEONE;
 	particleSystem.gravity = new BABYLON.Vector3(0, -9.81, 0);
-	particleSystem.direction1 = new BABYLON.Vector3(-7, -8, 3);
-	particleSystem.direction2 = new BABYLON.Vector3(7, -8, -3);
+	var direction = (params['direction'] != undefined) ? parseFloat(params['direction']) : -8;
+	particleSystem.direction1 = new BABYLON.Vector3(-7, direction, 3);
+	particleSystem.direction2 = new BABYLON.Vector3(7, direction, -3);
 	particleSystem.minAngularSpeed = 0;
 	particleSystem.maxAngularSpeed = Math.PI;
 	particleSystem.minEmitPower = 1;
 	particleSystem.maxEmitPower = 3;
-	particleSystem.minEmitBox = new BABYLON.Vector3(-60, 0, -60); // Starting all From
-	particleSystem.maxEmitBox = new BABYLON.Vector3(60, 0, 60); // To...
+	var size = (params['size'] != undefined) ? parseFloat(params['size']) : 60.0;
+	particleSystem.minEmitBox = new BABYLON.Vector3(-1*size, 0, -1*size); // Starting all From
+	particleSystem.maxEmitBox = new BABYLON.Vector3(size, 0, size); // To...
 	
 	particleSystem.updateSpeed = 0.005;
 	//fountain = obj;
