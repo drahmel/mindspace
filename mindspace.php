@@ -81,6 +81,7 @@ Class Mindspace
 
 		foreach ($scene['objects'] as $objId => $object) {
 			$scene['objects'][$objId] = $object + self::getEmptyObject($object['type']);
+			$scene['objects'][$objId]['type'] = intval($scene['objects'][$objId]['type']);
 		}
 
 		return $scene;		
@@ -157,6 +158,7 @@ Class Mindspace
 				'active' => TRUE,
 				'xyz' => array(0, 0, 0),
 				'color' => array(.5, .5, 0),
+				'size' => 50.0,
 			),
 			self::OBJECT_TYPE_CAMERA => array(
 				'name' => self::$objectTypes[self::OBJECT_TYPE_CAMERA].'_'.rand(1000,10000),

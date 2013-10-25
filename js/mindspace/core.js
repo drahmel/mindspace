@@ -324,9 +324,12 @@ function addSelection() {
 		
 	});	
 }
-function addPlane(name) {
-	var plane = BABYLON.Mesh.CreatePlane(name, 50.0, scene);
-	plane.position = new BABYLON.Vector3(0, 50, 0);
+function addPlane(params) {
+	var size = (params['size'] != undefined) ? params['size'] : 50.0;
+	var obj = BABYLON.Mesh.CreatePlane(params['name'], size, scene);
+	addParams(obj, params);
+	objDom[name] = obj;
+	return obj;
 }
 function addEmitter(name) {
 	var fountain = BABYLON.Mesh.CreateBox("fountain", 0.1, scene);
