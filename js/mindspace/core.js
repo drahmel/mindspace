@@ -32,7 +32,7 @@ function init(canvasId) {
 		camera = new BABYLON.ArcRotateCamera("Camera", 1, 0.8, 10, new BABYLON.Vector3(0, 0, 0), scene);
 		camera.setPosition(new BABYLON.Vector3(-40, 40, 0));
 	} else {
-		camera = new BABYLON.FreeCamera("Camera", new BABYLON.Vector3(-20, 0, -60), scene);
+		camera = new BABYLON.FreeCamera("Camera", new BABYLON.Vector3(0, 0, -60), scene);
 	}
 	// Creating a omnidirectional light
 	//var light0 = new BABYLON.PointLight("Omni", new BABYLON.Vector3(0, 0, 10), scene);
@@ -55,6 +55,7 @@ function addParams(obj, params) {
 		var matName = params['name']+"_mat";
 		var matObj = new BABYLON.StandardMaterial(matName, scene);
 		matObj.diffuseColor = new BABYLON.Color3(params['color'][0], params['color'][1], params['color'][2]);
+		matObj.emissiveColor = new BABYLON.Color3(params['color'][0], params['color'][1], params['color'][2]);
 		if(params['alpha']!=undefined) {
 			matObj.alpha = params['alpha'];
 		}
@@ -138,6 +139,7 @@ function addSphere(params) {
 	var materialSphere2 = new BABYLON.StandardMaterial("texture1", scene);		
 	addParams(obj, params);
 	objDom[name] = obj;
+	console.log(obj);
 	return obj;
 }
 
@@ -269,13 +271,14 @@ function addCameraRestriction() {
 	scene.registerBeforeRender(beforeRenderFunction);	
 }
 function addGravity() {
-	var ground = BABYLON.Mesh.CreatePlane("ground", 20.0, scene);
-	ground.material = new BABYLON.StandardMaterial("groundMat", scene);
-	ground.material.diffuseColor = new BABYLON.Color3(1,1,1);
-	ground.material.backFaceCulling = false;
-	ground.position = new BABYLON.Vector3(5, -10, -15);
-	ground.rotation = new BABYLON.Vector3(Math.PI / 2, 0, 0);
-
+	if(false) {
+		var ground = BABYLON.Mesh.CreatePlane("ground", 20.0, scene);
+		ground.material = new BABYLON.StandardMaterial("groundMat", scene);
+		ground.material.diffuseColor = new BABYLON.Color3(1,1,1);
+		ground.material.backFaceCulling = false;
+		ground.position = new BABYLON.Vector3(5, -10, -15);
+		ground.rotation = new BABYLON.Vector3(Math.PI / 2, 0, 0);
+	}
     	console.log("Adding gravity");
     	scene.gravity = new BABYLON.Vector3(0, -0.1, 0);
 	scene.collisionsEnabled = true;	
@@ -327,17 +330,19 @@ function addSelection() {
 function addPlane(params) {
 	var size = (params['size'] != undefined) ? params['size'] : 50.0;
 	var obj = BABYLON.Mesh.CreatePlane(params['name'], size, scene);
+	obj.rotation = new BABYLON.Vector3(Math.PI / 2, 0, 0);
 	addParams(obj, params);
 	objDom[name] = obj;
 	return obj;
 }
-function addEmitter(name) {
-	var fountain = BABYLON.Mesh.CreateBox("fountain", 0.1, scene);
-	var particleSystem = new BABYLON.ParticleSystem("particles", 2000, scene);
-	particleSystem.particleTexture = new BABYLON.Texture("/images/mindspace/Flare.png", scene);
+function addEmitter(params) {
+	var particle = (params['particle'] != undefined) ? params['particle'] : "/images/mindspace/Flare.png";
+	var fountain = BABYLON.Mesh.CreateBox("fountain", .1, scene);
+	var particleSystem = new BABYLON.ParticleSystem("particles", 4000, scene);
+	particleSystem.particleTexture = new BABYLON.Texture(particle, scene);
 	particleSystem.textureMask = new BABYLON.Color4(0.1, 0.8, 0.8, 1.0);
 	particleSystem.emitter = fountain;
-	particleSystem.color1 = new BABYLON.Color4(0.7, 0.8, 1.0, 1.0);
+	particleSystem.color1 = new BABYLON.Color4(1.0, 1.0, 1.0, 1.0);
 	particleSystem.color2 = new BABYLON.Color4(0.2, 0.5, 1.0, 1.0);
 	particleSystem.colorDead = new BABYLON.Color4(0, 0, 0.2, 0.0);
 	particleSystem.minSize = 0.1;
@@ -347,13 +352,17 @@ function addEmitter(name) {
 	particleSystem.emitRate = 500;
 	particleSystem.blendMode = BABYLON.ParticleSystem.BLENDMODE_ONEONE;
 	particleSystem.gravity = new BABYLON.Vector3(0, -9.81, 0);
-	particleSystem.direction1 = new BABYLON.Vector3(-7, 8, 3);
-	particleSystem.direction2 = new BABYLON.Vector3(7, 8, -3);
+	particleSystem.direction1 = new BABYLON.Vector3(-7, -8, 3);
+	particleSystem.direction2 = new BABYLON.Vector3(7, -8, -3);
 	particleSystem.minAngularSpeed = 0;
 	particleSystem.maxAngularSpeed = Math.PI;
 	particleSystem.minEmitPower = 1;
 	particleSystem.maxEmitPower = 3;
+	particleSystem.minEmitBox = new BABYLON.Vector3(-30, 0, -30); // Starting all From
+	particleSystem.maxEmitBox = new BABYLON.Vector3(30, 0, 30); // To...
 	
 	particleSystem.updateSpeed = 0.005;
+	//fountain = obj;
+	addParams(fountain, params);
 	particleSystem.start();
 }

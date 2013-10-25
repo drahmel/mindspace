@@ -44,7 +44,7 @@ Class Mindspace
 
 	static $skyboxes = array('snowbox', 'lavabox', 'cloudbox');
 
-	static function getScene($sceneId) {
+	static function getScene($sceneId, $onlyActive = TRUE) {
 		$sceneId = (int)$sceneId;
 		$fname = self::_getFName($sceneId);
 
@@ -59,6 +59,10 @@ Class Mindspace
 		}
 
 		foreach ($scene['objects'] as $objId => $object) {
+			if($onlyActive && empty($scene['objects'][$objId]['active'])) {
+				unset($scene['objects'][$objId]);
+				continue;
+			}
 			$scene['objects'][$objId] = $object + self::getEmptyObject($object['type']);
 			$scene['objects'][$objId]['type'] = intval($scene['objects'][$objId]['type']);
 		}
