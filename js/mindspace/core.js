@@ -112,9 +112,11 @@ function addAnimation(obj, params) {
 			BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE
 		);
 		var keys = [];  
-		keys.push({ frame: 0, value: 1 });
-		keys.push({ frame: 20, value: 0.2 });
-		keys.push({ frame: 100, value: 1 });
+		var breathe_min = (params['breathe_min'] != undefined) ? parseFloat(params['breathe_min']) : 0.2;
+		var breathe_max = (params['breathe_max'] != undefined) ? parseFloat(params['breathe_max']) : 1;
+		keys.push({ frame: 0, value: breathe_max });
+		keys.push({ frame: 20, value: breathe_min });
+		keys.push({ frame: 100, value: breathe_max });
 		animationBox.setKeys(keys);
 		obj.animations.push(animationBox);
 		numFrames = 100;
