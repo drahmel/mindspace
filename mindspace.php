@@ -93,6 +93,7 @@ Class Mindspace
 				'active' => TRUE,
 				'texture' => '',
 				'xyz' => array(0, 0, 0),
+				'rotatexyz' => array(0, 0, 0),
 				'color' => array(0, 0, 0),
 			),
 			self::OBJECT_TYPE_BOX => array(
@@ -102,6 +103,7 @@ Class Mindspace
 				'scaley' => 2,
 				'active' => TRUE,
 				'xyz' => array(0, 0, 0),
+				'rotatexyz' => array(0, 0, 0),
 				'color' => array(0, 0, 0),
 			),
 			self::OBJECT_TYPE_CYLINDER => array(
@@ -112,6 +114,7 @@ Class Mindspace
 				#'widthbottom' => 1,
 				'active' => TRUE,
 				'xyz' => array(0, 0, 0),
+				'rotatexyz' => array(0, 0, 0),
 				'color' => array(0, 0, 0),
 			),
 			self::OBJECT_TYPE_DONUT => array(
@@ -120,6 +123,7 @@ Class Mindspace
 				'collision' => 1,
 				'active' => TRUE,
 				'xyz' => array(0, 0, 0),
+				'rotatexyz' => array(0, 0, 0),
 				'color' => array(0, 0, 0),
 			),
 			self::OBJECT_TYPE_POINTLIGHT => array(
@@ -143,6 +147,7 @@ Class Mindspace
 				'active' => TRUE,
 				'xyz' => array(0, 0, 0),
 				'color' => array(.5, .5, 0),
+				'rotatexyz' => array(0, 0, 0),
 				'size' => 50.0,
 			),
 			self::OBJECT_TYPE_CAMERA => array(

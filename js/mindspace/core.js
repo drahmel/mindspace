@@ -17,6 +17,8 @@ var engine;
 var scene;
 var camera;
 var version = 0.1;
+var sun;
+var shadowGenerator;
 
 function init(canvasId) {
 	canvas = document.getElementById(canvasId);
@@ -36,7 +38,9 @@ function init(canvasId) {
 	}
 	// Creating a omnidirectional light
 	//var light0 = new BABYLON.PointLight("Omni", new BABYLON.Vector3(0, 0, 10), scene);
-	var sun = new BABYLON.PointLight("Omni0", new BABYLON.Vector3(60, 100, 10), scene);
+	sun = new BABYLON.PointLight("Omni0", new BABYLON.Vector3(60, 100, 10), scene);
+	//var shadowGenerator = new BABYLON.ShadowGenerator(1024, sun);
+	//shadowGenerator.getShadowMap().renderList.push(torus);
 	
 	window.addEventListener("resize", function () {
 		engine.resize();
@@ -101,13 +105,21 @@ function addParams(obj, params) {
 		var numFrames = addAnimation(obj, params);
 		scene.beginAnimation(obj, 0, numFrames, true);
 	}
+	if(params['throwshadows'] != undefined) {
+		shadowGenerator.getShadowMap().renderList.push(obj);
+	}
+	
+	if(params['receiveshadows'] != undefined) {
+		obj.receiveShadows = true;
+	}
 }
 
 function addAnimation(obj, params) {
 	var numFrames = 0;
+	var framerate = (params['framerate'] != undefined) ? params['framerate'] : 30;
 	if(params['animation'] == 'breathe') {
 		var animationBox = new BABYLON.Animation(
-			name+"_anim", "scaling.x", 30,
+			name+"_anim", "scaling.x", framerate,
 			BABYLON.Animation.ANIMATIONTYPE_FLOAT,
 			BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE
 		);
@@ -122,7 +134,7 @@ function addAnimation(obj, params) {
 		numFrames = 100;
 	} else if(params['animation'] == 'move') {
 		var animationBox = new BABYLON.Animation(
-			name+"_anim", "position.x", 60,
+			name+"_anim", "position.x", framerate,
 			BABYLON.Animation.ANIMATIONTYPE_FLOAT,
 			BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE
 		);
@@ -130,6 +142,20 @@ function addAnimation(obj, params) {
 		keys.push({ frame: 0, value: 1 });
 		keys.push({ frame: 100, value: 100 });
 		keys.push({ frame: 200, value: 1 });
+		animationBox.setKeys(keys);
+		obj.animations.push(animationBox);
+		numFrames = 200;
+	} else if(params['animation'] == 'spin') {
+		var axis = (params['axis'] != undefined) ? params['axis'] : 'x';
+		var animationBox = new BABYLON.Animation(
+			name+"_anim", "rotation."+axis, framerate,
+			BABYLON.Animation.ANIMATIONTYPE_FLOAT,
+			BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE
+		);
+		var keys = [];  
+		keys.push({ frame: 0, value: 0 });
+		keys.push({ frame: 100, value: 3.14159 *2 });
+		//keys.push({ frame: 200, value: 0 });
 		animationBox.setKeys(keys);
 		obj.animations.push(animationBox);
 		numFrames = 200;
