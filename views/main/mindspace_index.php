@@ -5,9 +5,9 @@
     <title>Mindscape</title>
 
     <!--Loading babylon engine -->
-    <script src="/ui/js/mindspace/babylon.js?v=1" ></script>
+    <script src="/js/mindspace/babylon.js?v=1" ></script>
     <!-- script src="http://www.babylonjs.com/tutorials/blogs/customShaders/babylon.js" ></script -->
-    <script src="/ui/js/mindspace/hand.js"></script>
+    <script src="/js/mindspace/hand.js"></script>
 
 
     <!-- CSS -->

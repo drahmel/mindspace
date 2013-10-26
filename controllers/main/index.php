@@ -3,15 +3,16 @@
 const FNAME = "scene.json";
 
 function _index() {
-	echo '1';
 	ini_set('memory_limit', '1990M');
 	ini_set('display_errors', true);
 	set_time_limit(0);
+	$view = new View(VIEW_PATH."main/mindspace_index.php");
+	$scene = array('objects' => array());
+	$view->set("scene", $scene);
+	$view->set("username","Eric");
+	echo $view->fetch();
+
 	exit;
-	$data['body'][]=View::do_fetch(VIEW_PATH.'main/mindspace_index.php');
-	print_r($data);
-	exit;
-	View::do_dump(VIEW_PATH.'layout.php',$data);
 	/*
 	$view = View::factory('mindspace/mindspace_index');
 	$scene = $this->getScene();
