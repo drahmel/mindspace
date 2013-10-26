@@ -8,7 +8,7 @@ define('WEB_FOLDER','/kissmvc_simple/'); //with trailing slash pls
 //define('WEB_FOLDER','/kissmvc_simple/index.php/'); //use this if you do not have mod_rewrite enabled
 define('VIEW_PATH','views/'); //with trailing slash pls
 
-require('kissmvc.php');
+require('classes/kissmvc.php');
 
 session_start();
 
