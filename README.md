@@ -19,12 +19,12 @@ The goals of Mindspace are as follows:
 Starting a Mindscape server is easy:
 
 * Clone the source code to a web-accessible directory
-** ```git clone git@github.com:drahmel/mindspace.git ```
+		```git clone git@github.com:drahmel/mindspace.git ```
 * Access in a browser
-** ```http://localhost```
+		```http://localhost```
 * Use the mouse to change the view of the world 
 * Access the admin in a browser
-** ```http://localhost/admin```
+		```http://localhost/admin```
 
 # Getting Started - Framework integration
 
@@ -32,15 +32,43 @@ Starting a Mindscape server is easy:
 * Create symbolic links to the individual directories.
 
 ** For example, if your web accessible directory for images is myproject/docs/myimages and your vendor directory where you added mindspace is myproject/vendor/mindspace, then you can add this symlink:
-** ```cd myproject/docs/myimages```
-** ```ln -s ../vendor/mindspace/images/mindspace myimages```
-** Now in your browser, you can access ```http://localhost/myimages/mindspace/sample.png```
+		```cd myproject/docs/myimages```
+		```ln -s ../vendor/mindspace/images/mindspace myimages```
+* Now in your browser, you can access
+		```http://localhost/myimages/mindspace/sample.png```
 * Do the same for the js/ and spaces/ directories and then you can easily create your own views in the framework of your choice.
+
+## Designing Your Own Views
+
+* Add the JavaScript to the headers:
+
+```
+    <script src="/js/mindspace/babylon.js?v=1" ></script>
+    <script src="/js/mindspace/hand.js"></script>
+    <script src="/js/mindspace/core.js"></script>
+```
+
+* Initialize a new scene:
+
+```
+    <div id="rootDiv">
+
+        <!-- Main Canvas -->
+        <canvas id="renderCanvas"></canvas>
+    </div>
+    <script type="text/javascript">
+    init("renderCanvas");
+    addSphere({name:'MySphere'});
+
+    </script>
+    </body>
+```
 
 # Requirements
 
 * PHP-enabled server
 * WebGL capable browser -- Modern versions of Chrome, Firefox, and IE 11
+* Babylon.js (included)
 
 # Notes
 
