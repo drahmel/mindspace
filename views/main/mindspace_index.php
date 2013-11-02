@@ -32,41 +32,22 @@
 
 <script type="text/javascript">
     	init("renderCanvas");
-	<?php foreach($scene['objects'] as $object): ?>
-		<?php
-		$type = isset($object['type']) ? $object['type'] : 1;
-		$objectName = 'o_'.$object['name'];
-		if($type==1) {
-			echo 'var '.$objectName.' = BABYLON.Mesh.CreateSphere("' . $object['name'] . '", 10, 1.0, scene);';
-			echo 'var materialSphere2 = new BABYLON.StandardMaterial("texture1", scene);';
-			//echo 'materialSphere2.diffuseTexture = new BABYLON.Texture("http://a1.s6img.com/cdn/0018/p/6808232_14801161_ir.jpg", scene);';
-			//echo $objectName.'.material = materialSphere2;';
-		} elseif($type==2) {
-			echo 'var '.$objectName.' = BABYLON.Mesh.CreateBox("' . $object['name'] . '", 6.0, scene);';			
-			echo $objectName.'.rotation.x = Math.PI/4;';
-			echo 'var materialSphere1 = new BABYLON.StandardMaterial("texture1", scene);';
-			echo $objectName.'.material = materialSphere1;';
-			echo 'materialSphere1.alpha = 0.5;';
-			//echo 'materialSphere1.diffuseTexture = new BABYLON.Texture("http://a1.s6img.com/cdn/0018/p/6808232_14801161_ir.jpg", scene);';
-		} elseif($type==3) {
-			echo 'var o_'.$object['name'].' = BABYLON.Mesh.CreateCylinder("' . $object['name'] . '", 3, 3, 20, scene, false);';
-		} elseif($type==4) {
-			echo 'var o_'.$object['name'].' = BABYLON.Mesh.CreateTorus("' . $object['name'] . '", 5, 1, 20, scene, false);';
-		} elseif($type==5) {
-			echo 'var '.$objectName.' = new BABYLON.PointLight("Omni0", new BABYLON.Vector3(1, 5, 1), scene);
-				'.$objectName.'.diffuse = new BABYLON.Color3('.rand(0,1).', '.rand(0,1).', '.rand(0,1).');
-				'.$objectName.'.specular = new BABYLON.Color3(1, 1, 1);';
-		} else {
-			echo 'var '.$objectName.' = BABYLON.Mesh.CreateSphere("' . $object['name'] . '", 10, 1.0, scene);';	
-		}
-		?>
-		
-		<?php echo $objectName ?>.position = new BABYLON.Vector3(<?php echo $object['xyz'][0].','.$object['xyz'][1].','.$object['xyz'][2]; ?>);
-	<?php endforeach; ?>
+	var addMethods = {1:'addSphere', 2:'addBox', 3:'addCylinder', 4:'addDonut', 5:'addPointLight', 6:'addPicture', 7:'addPlane', 10:'addEmitter'};
 
+	<?php
+	echo "var sceneData = JSON.parse('".json_encode($scene)."');\n";
+	?>
+	for(var i in sceneData['objects']) {
+		var curObj = sceneData['objects'][i];
+		if (curObj['type'] in addMethods) {
+			var cmd = addMethods[curObj['type']];
+			window[cmd](curObj);
+		}
+	}
         // Attach the camera to the scene
         scene.activeCamera.attachControl(canvas);
-       
+        addSelection();
+               
 	var beforeRenderFunction = function () {
 		// Camera
 		if (camera.beta < 0.1) {
