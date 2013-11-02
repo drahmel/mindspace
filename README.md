@@ -32,11 +32,15 @@ Starting a Mindscape server is easy:
 * Create symbolic links to the individual directories.
 
 ** For example, if your web accessible directory for images is myproject/docs/myimages and your vendor directory where you added mindspace is myproject/vendor/mindspace, then you can add this symlink:
-		```cd myproject/docs/myimages```
-		```ln -s ../vendor/mindspace/images/mindspace myimages```
-* Now in your browser, you can access
-		```http://localhost/myimages/mindspace/sample.png```
-* Do the same for the js/ and spaces/ directories and then you can easily create your own views in the framework of your choice.
+
+```
+cd myproject/docs/myimages
+ln -s ../vendor/mindspace/images/mindspace myimages
+```
+* Now in your browser, you can access:
+
+```http://localhost/myimages/mindspace/sample.png```
+* Do the same for the ```js/``` and ```spaces/``` directories and then you can easily create your own views in the framework of your choice.
 
 ## Designing Your Own Views
 
@@ -75,8 +79,13 @@ Starting a Mindscape server is easy:
 * Examples will use the KISS-MVC framework since it has a single file implementation. This simplicity means that the code can be easily adapted to any PHP framework of choice (Zend, Code Igniter, Yii, etc.).
 * File format will be JSON-based and extensible -- custom properties can be easily added
 
-
-
 Data can be stored to a file (for simple static worlds) or Redis.
+
+# Roadmap
+
+* Make rendering all JavaScript
+* Create Node version that is compatible
+* Add live update of changes via Ajax interface
+* Create a few sample worlds with animation
 
 
