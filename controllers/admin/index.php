@@ -15,33 +15,34 @@ class Controller_Admin {
 		echo $view->fetch();
 	
 		exit;
-		/*
-		$view = View::factory('mindspace/mindspace_index');
-		$scene = $this->getScene();
-		$view->set('scene', $scene);
-		echo $view->render();
-		exit;
-		*/
 	}
 	
 	function _add()
 	{
 		$scene = mindspace::getScene();
-		$scene['objects'][] = array(
-			'name' => utils::getRequest('name'),
-			'xyz' => array(utils::getRequest('x'), utils::getRequest('y'), utils::getRequest('z')),
-			'type' => utils::getRequest('type'),
-		);
-		//utils::print_r($scene);
-		mindspace::saveScene($scene);
+		$name = utils::getRequest('name');
+		$xyz =  array(utils::getRequest('x', 0.0), utils::getRequest('y', 0.0), utils::getRequest('z', 0.0));
 		$user = utils::getRequest('user');
+		$type = utils::getRequest('type');
+		if(!empty($name) && !empty($type)) {
+			$scene['objects'][] = array(
+				'name' => $name,
+				'xyz' => $xyz,
+				'type' => $type,
+			);
+			ll::_("# of objects: ".count($scene['objects']));
+			//utils::print_r($scene);
+			mindspace::saveScene($scene);
+		} else {
+			ll::_("Empty name or type");
+		}
 		$url = '/admin';
 		$url = (!empty($user))	?	$url . "?user=".$user	:	$url;
-		if(true) {
+		if(false) {
 			utils::redirect($url,200);
 		} else {
-			//ll::_("Redirect to $url");
-			//echo ll::get_ll_html();
+			ll::_("Redirect to $url");
+			echo ll::get_ll_html();
 		}
 		exit;
 		

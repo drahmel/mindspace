@@ -49,6 +49,7 @@ Class mindspace
 		$fname = self::_getFName($sceneId);
 
 		if (!is_file($fname)) {
+			ll::_("No file found. Create default scene.");
 			$scene = self::getDefaultScene();
 			$scene['scene_id'] = $scene;
 			self::saveScene($scene, $sceneId);
@@ -56,6 +57,7 @@ Class mindspace
 		} else {
 			$json = file_get_contents($fname);
 			$scene = json_decode($json, TRUE) ;
+			ll::_("Found file: {$fname} # of objects: ".count($scene['objects']));
 		}
 
 		foreach ($scene['objects'] as $objId => $object) {
@@ -73,6 +75,7 @@ Class mindspace
 
 	static function saveScene($scene, $sceneId = 1) {
 		$fname = self::_getFName($sceneId);
+		ll::_("Saving scene to file: {$fname} # of objects: ".count($scene['objects']));
 		file_put_contents($fname, json_encode($scene));
 	}
 
