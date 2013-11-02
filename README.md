@@ -30,16 +30,17 @@ Starting a Mindscape server is easy:
 
 * Add this repository as a submodule to your project
 * Create symbolic links to the individual directories.
-
-** For example, if your web accessible directory for images is myproject/docs/myimages and your vendor directory where you added mindspace is myproject/vendor/mindspace, then you can add this symlink:
+* For example, if your web accessible directory for images is myproject/docs/myimages and your vendor directory where you added mindspace is myproject/vendor/mindspace, then you can add this symlink:
 
 ```
 cd myproject/docs/myimages
 ln -s ../vendor/mindspace/images/mindspace myimages
 ```
+
 * Now in your browser, you can access:
 
 ```http://localhost/myimages/mindspace/sample.png```
+
 * Do the same for the ```js/``` and ```spaces/``` directories and then you can easily create your own views in the framework of your choice.
 
 ## Designing Your Own Views
