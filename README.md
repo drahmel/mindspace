@@ -1,5 +1,11 @@
 Mindspace is a Content Management System (CMS) that allows you to build a world using a standard GUI much like WordPress or Joomla.
 
+<img src="https://raw.github.com/drahmel/mindspace/master/images/mindspace/sample.png" />
+
+And the CMS:
+
+<img src="https://raw.github.com/drahmel/mindspace/master/images/mindspace/sample_admin.png" />
+
 The goals of Mindspace are as follows:
 
 * Code is licensed with the MIT license so it can be used for almost any use: commercial or open source.
