@@ -8,7 +8,8 @@ class Controller_Main {
 		ini_set('display_errors', true);
 		set_time_limit(0);
 		$view = new View(VIEW_PATH."main/mindspace_index.php");
-		$scene = mindspace::getScene();
+		$sceneID = utils::getRequest('id', 1, 'int');
+		$scene = mindspace::getScene($sceneID);
 		$view->set("scene", $scene);
 		$view->set("username","Eric");
 		ll::header_ll();

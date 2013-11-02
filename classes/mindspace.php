@@ -59,7 +59,7 @@ Class mindspace
 			$scene = json_decode($json, TRUE) ;
 			ll::_("Found file: {$fname} # of objects: ".count($scene['objects']));
 		}
-
+		// Post-process file
 		foreach ($scene['objects'] as $objId => $object) {
 			if($onlyActive && empty($scene['objects'][$objId]['active'])) {
 				unset($scene['objects'][$objId]);
@@ -68,6 +68,7 @@ Class mindspace
 			$scene['objects'][$objId] = $object + self::getEmptyObject($object['type']);
 			$scene['objects'][$objId]['type'] = intval($scene['objects'][$objId]['type']);
 		}
+		ll::_("Post-process objects: ".count($scene['objects']));
 
 		return $scene;		
 	}

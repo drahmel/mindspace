@@ -8,9 +8,6 @@
     <script src="/js/mindspace/hand.js"></script>
     <script src="/js/mindspace/core.js"></script>
 
-
-    <!-- CSS -->
-    <!-- ------ -->
     <style>
         html, body, div, canvas {
             width: 100%;

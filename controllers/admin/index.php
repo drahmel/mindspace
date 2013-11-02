@@ -9,7 +9,8 @@ class Controller_Admin {
 		ini_set('display_errors', true);
 		set_time_limit(0);
 		$view = new View(VIEW_PATH."admin/admin_index.php");
-		$scene = mindspace::getScene(); //array('objects' => array());
+		$sceneID = utils::getRequest('id', 1, 'int');
+		$scene = mindspace::getScene($sceneID);
 		$view->set("scene", $scene);
 		$view->set("username","Eric");
 		echo $view->fetch();
@@ -19,26 +20,26 @@ class Controller_Admin {
 	
 	function _add()
 	{
-		$scene = mindspace::getScene();
+		$sceneID = utils::getRequest('id', 1, 'int');
+		$scene = mindspace::getScene($sceneID, false);
 		$name = utils::getRequest('name');
 		$xyz =  array(utils::getRequest('x', 0.0), utils::getRequest('y', 0.0), utils::getRequest('z', 0.0));
-		$user = utils::getRequest('user');
 		$type = utils::getRequest('type');
 		if(!empty($name) && !empty($type)) {
-			$scene['objects'][] = array(
+			$scene['objects'][$name] = array(
 				'name' => $name,
 				'xyz' => $xyz,
 				'type' => $type,
+				'active' => 1,
 			);
-			ll::_("# of objects: ".count($scene['objects']));
 			//utils::print_r($scene);
 			mindspace::saveScene($scene);
 		} else {
 			ll::_("Empty name or type");
 		}
 		$url = '/admin';
-		$url = (!empty($user))	?	$url . "?user=".$user	:	$url;
-		if(false) {
+		//$url = (!empty($sceneID))	?	$url . "?id=".$sceneID	:	$sceneID;
+		if(true) {
 			utils::redirect($url,200);
 		} else {
 			ll::_("Redirect to $url");
