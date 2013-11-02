@@ -1,4 +1,5 @@
 <?php
+require(APP_PATH.'classes/mindspace.php');
 
 class Controller_Main {
 	const FNAME = "scene.json";
@@ -8,7 +9,7 @@ class Controller_Main {
 		ini_set('display_errors', true);
 		set_time_limit(0);
 		$view = new View(VIEW_PATH."main/mindspace_index.php");
-		$scene = array('objects' => array());
+		$scene = mindspace::getScene(); //array('objects' => array());
 		$view->set("scene", $scene);
 		$view->set("username","Eric");
 		echo $view->fetch();
