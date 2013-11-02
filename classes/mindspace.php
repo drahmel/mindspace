@@ -13,7 +13,7 @@
  */
 
 
-Class Mindspace
+Class mindspace
 {
 	const OBJECT_TYPE_BALL = 1;
 	const OBJECT_TYPE_BOX = 2;
@@ -44,7 +44,7 @@ Class Mindspace
 
 	static $skyboxes = array('snowbox', 'lavabox', 'cloudbox');
 
-	static function getScene($sceneId, $onlyActive = TRUE) {
+	static function getScene($sceneId = 1, $onlyActive = TRUE) {
 		$sceneId = (int)$sceneId;
 		$fname = self::_getFName($sceneId);
 
@@ -71,7 +71,7 @@ Class Mindspace
 	}
 
 
-	static function saveScene($scene, $sceneId) {
+	static function saveScene($scene, $sceneId = 1) {
 		$fname = self::_getFName($sceneId);
 		file_put_contents($fname, json_encode($scene));
 	}
@@ -80,7 +80,7 @@ Class Mindspace
 	protected static function _getFName($sceneId) {
 		$sceneId = (int)$sceneId;
 		$fname = $sceneId ? "scene_$sceneId.json" : "scene_0.json";
-		return PUB_PATH . 'spaces/mindspace/' .$fname;
+		return APP_PATH . 'spaces/mindspace/' .$fname;
 	}
 
 

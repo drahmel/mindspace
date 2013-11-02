@@ -1,0 +1,21 @@
+Options +FollowSymlinks
+# switch GoDaddy's php extension handling for php5
+#AddHandler x-httpd-php5 .php
+#AddHandler x-httpd-php .php4
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php/$0 [PT,QSA,L]
+    
+    
+</IfModule>
+
+<IfModule !mod_rewrite.c>
+    # If we don't have mod_rewrite installed, all 404's
+    # can be sent to index.php, and everything works as normal.
+    # Submitted by: ElliotHaughin
+</IfModule>

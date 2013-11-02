@@ -18,7 +18,7 @@
 	<p><?php echo $object['name']; ?> = <?php echo $object['xyz'][0].','.$object['xyz'][1].','.$object['xyz'][2]; ?></p>
 <?php endforeach; ?>
 
-<form method="POST" action="/mindspace/add">
+<form method="POST" action="/admin/add">
 	<input name="name" placeholder="Enter name" value="obj<?php echo rand(1000,10000); ?>" />
 	<input name="x" placeholder="x" value="<?php echo rand(-10,10); ?>" />
 	<input name="y" placeholder="y" value="<?php echo rand(-10,10); ?>" />
