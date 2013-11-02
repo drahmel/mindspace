@@ -39,9 +39,11 @@ ln -s ../vendor/mindspace/images/mindspace myimages
 
 * Now in your browser, you can access:
 
-```http://localhost/myimages/mindspace/sample.png```
+```
+http://localhost/myimages/mindspace/sample.png
+```
 
-* Do the same for the ```js/``` and ```spaces/``` directories and then you can easily create your own views in the framework of your choice.
+* Do the same for the js/ and spaces/ directories and then you can easily create your own views in the framework of your choice.
 
 ## Designing Your Own Views
 
