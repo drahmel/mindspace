@@ -41,6 +41,7 @@ function init(canvasId) {
 	sun = new BABYLON.PointLight("Omni0", new BABYLON.Vector3(60, 100, 10), scene);
 	//var shadowGenerator = new BABYLON.ShadowGenerator(1024, sun);
 	//shadowGenerator.getShadowMap().renderList.push(torus);
+	addSkybox("sky", 10);
 	
 	window.addEventListener("resize", function () {
 		engine.resize();
@@ -266,7 +267,7 @@ function addSkybox(skyboxName, postId) {
 //	var skyboxName = 'cloudbox';
 
 	skyboxMaterial.backFaceCulling = false;
-	skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("/services/mindspace/skybox?post_id="+postId+"&file="+skyboxName, scene);
+	skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("/images/mindspace/cloudbox/cloudbox", scene);
 	skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
 	skyboxMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0);
 	skyboxMaterial.specularColor = new BABYLON.Color3(0, 0, 0);

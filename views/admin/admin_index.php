@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title>Mindspace CMS</title>
+	<link rel="shortcut icon" href='/favicon.ico' />
 	<link href="/ui/css/bootstrap.css" rel="stylesheet" type="text/css" />
 	<link href="/ui/css/bootstrap-responsive.css" rel="stylesheet" type="text/css" />
 	<style>

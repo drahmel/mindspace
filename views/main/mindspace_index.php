@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Mindscape</title>
-
+    <link rel="shortcut icon" href='/favicon.ico' />
     <script src="/js/mindspace/babylon.js?v=1" ></script>
     <script src="/js/mindspace/hand.js"></script>
     <script src="/js/mindspace/core.js"></script>
